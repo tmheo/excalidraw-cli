@@ -86,3 +86,132 @@ yarn-error.log*
 **/*.png
 
 .DS_Store
+*.rdb
+[Dd]esktop.ini
+# Claude Code Configuration
+.venv/
+.claude/skills/*/*/*token*
+*-key.*
+*_secret.*
+# Virtual Environments
+.TemporaryItems
+# Cloud provider credentials
+# Linux
+secret-key-*
+htmlcov/
+.env.*
+.VolumeIcon.icns
+# ============================================
+Thumbs.db
+# Test Coverage
+# ===========================================
+.uv_cache/
+*_token=*
+!.env.example
+*.backup/
+coverage.json
+*.pem
+*.backup
+.moai-backups/
+# Build Artifacts & Distribution
+*.temp
+# Version: 0.33.0
+*.key.*
+*.pyc
+*.egg
+# Logs & Temporary Files
+# Certificate files
+.nuxt/
+.firebase/
+*-api-key.*
+.claude/.env.local*
+*.sln
+.aws/credentials
+.next/
+# Deployment & CI/CD
+.AppleDouble
+.claude/settings.local.*.json
+.tscache/
+*.sqlite
+.claude/skills/*/.env*
+# Python Cache & Bytecode
+*.swp
+logs/
+*-secret.*
+.fseventsd
+__pycache__/
+.Spotlight-V100
+# Private keys (specific patterns to avoid false positives)
+# Skill-specific credentials
+*.secret.*
+.claude/skills/*/*/*key*
+dist-ssr/
+.cursor/
+*-backup/
+# Purpose: Essential patterns for user projects
+.#*
+.mypy_cache/
+# Credential patterns in environment files
+venv/
+.uv-cache/
+.vscode/
+.LSOverride
+*.bak
+# MoAI-ADK Package Distribution .gitignore
+api-key-*
+.claude/skills/*/*/*secret*
+.coverage
+.netlify/
+*.njsproj
+*.tmp
+*.swo
+*.sqlite3
+*.suo
+.aws/config
+.claude/settings.local.json
+*_key.*
+# Environment files
+dist/
+# Build Tools & Frameworks
+.claude/skills/*/secrets/
+.turbo/
+.claude/plans/
+.ruff_cache/
+*-secret-key.*
+.vercel/
+*_backup_*/
+*~
+.DocumentRevisions-V100
+*.egg-info/
+# Windows
+*.dbm
+.Trashes
+secret-*.*
+# Updated: 2026-01-10
+build/
+.idea/
+# Node.js (for docs/Nextra)
+.directory
+ehthumbs.db
+*.pyo
+*.db
+# IDE & Editors
+private-key*
+*.sublime-workspace
+# Backups
+*.sw?
+# OS Files
+env/
+*.jks
+.claude/local/
+# Mac
+*_secret=*
+out/
+*.pyd
+.env/
+# FIXED: Issue #237 - Replaced overly broad *key* and *secret* patterns
+# Secrets and Credentials (CRITICAL)
+.pytest_cache/
+*.pfx
+*.sublime-project
+*.p12

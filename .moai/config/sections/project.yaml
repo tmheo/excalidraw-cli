@@ -1,0 +1,9 @@
+project:
+  name: excalidraw-cli
+  description: ''
+  type: ''
+  locale: '{{LOCALE}}'
+  created_at: '2026-01-26T14:11:02.289161Z'
+  initialized: 'true'
+github:
+  profile_name: tmheo
