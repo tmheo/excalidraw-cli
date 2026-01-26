@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import { Listr } from 'listr2'
 import { Observable } from 'rxjs'
 import { generateCanvasAndSaveAsPng } from './compute'
 
@@ -12,12 +12,22 @@ const generateTaskFromFile = (file, inputPath, outputPath) => {
     }
 }
 
+/**
+ * Create Listr options configuration
+ * @param {boolean} quiet - Whether to suppress output
+ * @returns {Object} Listr options object
+ */
+const createListrOptions = (quiet) => ({
+    renderer: quiet ? 'silent' : 'default',
+    concurrent: false
+})
+
 export const generateTaskListFromFiles = (files, inputPath, outputPath, quiet) => {
     const tasks = files.map(file => generateTaskFromFile(file, inputPath, outputPath))
-    return new Listr(tasks, { renderer: quiet ? 'silent' : 'default' })
+    return new Listr(tasks, createListrOptions(quiet))
 }
 
 export const generateTaskListFromFile = (file, outputPath, quiet) => {
     const tasks = generateTaskFromFile(file, '', outputPath)
-    return new Listr([tasks], { renderer: quiet ? 'silent' : 'default' })
+    return new Listr([tasks], createListrOptions(quiet))
 }
