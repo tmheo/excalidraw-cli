@@ -1,11 +1,11 @@
-FROM node:lts-alpine
+FROM node:18-alpine
 
 VOLUME [ "/data" ]
 ENTRYPOINT [ "/home/excalidraw/bin/run" ]
 
 RUN addgroup -S excalidraw && adduser -S excalidraw -G excalidraw
 RUN apk add --no-cache \
-    python \
+    python3 \
     g++ \
     build-base \
     cairo-dev \
