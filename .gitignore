@@ -114,6 +114,8 @@ coverage.json
 *.pem
 *.backup
 .moai-backups/
+.moai/cache/
+.moai/memory/
 # Build Artifacts & Distribution
 *.temp
 # Version: 0.33.0
