@@ -44,4 +44,4 @@ The renderer has been refactored to avoid internal API dependencies, making futu
 
 ## [0.5.0] - Previous release
 
-(Existing release information)
+Initial release with legacy dependencies before SPEC-UPDATE-001 modernization.

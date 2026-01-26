@@ -76,7 +76,7 @@ npm run prepack
 
 ## Project Structure
 
-```
+```text
 excalidraw-cli/
 ├── src/                    # TypeScript source code
 │   ├── index.ts           # oclif v4 Command entry point

@@ -20,13 +20,13 @@
 
 | 카테고리 | 현재 버전 | 목표 버전 | 변경 영향도 |
 |----------|-----------|-----------|-------------|
-| **Node.js** | >=8.0.0 | >=18.0.0 | Low |
+| **Node.js** | >=8.0.0 | >=22.0.0 | Low |
 | **TypeScript** | ^4.1.2 | ^5.7.x | Medium |
 | **oclif** | v1 (@oclif/command ^1) | v4 (@oclif/core ^4.x) | Critical |
 | **canvas** | ^2.6.1 | ^3.x | High |
-| **roughjs** | ^4.3.1 | ^5.x | High |
+| **roughjs** | ^4.3.1 | ^4.6.6 | High |
 | **Jest** | ^27.0.4 | ^29.x | Medium |
-| **listr/listr2** | ^0.14.3/^3.2.3 | listr2 ^8.x | Medium |
+| **listr/listr2** | ^0.14.3/^3.2.3 | listr2 ^10.0.0 | Medium |
 
 ### 1.2 네이티브 의존성 환경
 
@@ -37,7 +37,7 @@
 
 ### 1.3 프로젝트 구조
 
-```
+```text
 src/
 ├── index.ts          # oclif Command 정의 (Critical - oclif 마이그레이션 대상)
 ├── compute.js        # 입력 처리 로직

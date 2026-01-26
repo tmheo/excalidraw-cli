@@ -1,13 +1,13 @@
 /**
  * Characterization tests for CLI interface
- * These tests capture current behavior before oclif v4 migration
+ * These tests validate CLI behavior with oclif v4
  */
 
-import { exec } from 'child_process'
+import { execFile } from 'child_process'
 import { promisify } from 'util'
 import * as path from 'path'
 
-const execAsync = promisify(exec)
+const execFileAsync = promisify(execFile)
 const CLI_PATH = path.join(__dirname, '../bin/run')
 
 /**
@@ -17,7 +17,7 @@ const CLI_PATH = path.join(__dirname, '../bin/run')
  */
 const executeCLI = async (...args: string[]) => {
     try {
-        const { stdout, stderr } = await execAsync(`node ${CLI_PATH} ${args.join(' ')}`)
+        const { stdout, stderr } = await execFileAsync('node', [CLI_PATH, ...args])
         return { stdout, stderr, error: null }
     } catch (error: any) {
         return { stdout: error.stdout || '', stderr: error.stderr || '', error }

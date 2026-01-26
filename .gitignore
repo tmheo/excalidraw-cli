@@ -105,6 +105,7 @@ htmlcov/
 Thumbs.db
 # Test Coverage
 # ===========================================
+test-snapshots/
 .uv_cache/
 *_token=*
 !.env.example

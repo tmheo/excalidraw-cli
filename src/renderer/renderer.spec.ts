@@ -66,7 +66,7 @@ describe('Renderer Characterization Tests', () => {
     })
 
     describe('Arrow rendering', () => {
-        test('should render arrow with current rc.generator behavior', async () => {
+        test('should render arrow with current public API (rc.curve) behavior', async () => {
             const excalidrawData = {
                 type: "excalidraw",
                 version: 2,
@@ -92,7 +92,9 @@ describe('Renderer Characterization Tests', () => {
             expect(canvas.width).toBeGreaterThan(0)
             expect(canvas.height).toBeGreaterThan(0)
 
-            // Save snapshot for visual regression testing
+            // Generate baseline snapshot for characterization
+            // Note: This test only generates a PNG and verifies file creation
+            // No actual pixel comparison or regression testing is performed
             const buffer = canvas.toBuffer('image/png')
             const snapshotPath = path.join(snapshotDir, 'arrow-baseline.png')
             await fs.writeFile(snapshotPath, buffer)
@@ -130,7 +132,7 @@ describe('Renderer Characterization Tests', () => {
     })
 
     describe('Line rendering', () => {
-        test('should render line with current rc.generator behavior', async () => {
+        test('should render line with current public API (rc.line) behavior', async () => {
             const excalidrawData = {
                 type: "excalidraw",
                 version: 2,

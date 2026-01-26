@@ -27,8 +27,8 @@
 │        ▼                  ▼                  ▼                           │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                  │
 │  │ TypeScript  │    │ canvas v3   │    │ oclif v4    │                  │
-│  │ Jest 29     │    │ roughjs v5  │    │ Migration   │                  │
-│  │ Node 18+    │    │ listr2 v8   │    │ Final QA    │                  │
+│  │ Jest 29     │    │ roughjs v4.6.6  │    │ Migration   │                  │
+│  │ Node 18+    │    │ listr2 v10   │    │ Final QA    │                  │
 │  └─────────────┘    └─────────────┘    └─────────────┘                  │
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
@@ -158,7 +158,7 @@
 2. 기존 렌더링 코드 호환성 확인
 3. Docker Alpine 빌드 테스트
 
-#### Task 2.2: roughjs v5 마이그레이션
+#### Task 2.2: roughjs v4.6.6 마이그레이션
 | 항목 | 내용 |
 |------|------|
 | **파일** | `package.json`, `/src/renderer/arrow.js`, 기타 렌더러 |
@@ -188,7 +188,7 @@ rc.line(x1, y1, x2, y2, options);
 ```
 
 **사전 조사 필요:**
-- roughjs v5 CHANGELOG 및 마이그레이션 가이드 확인
+- roughjs v4.6.6 CHANGELOG 및 마이그레이션 가이드 확인
 - `rc.generator` 대체 API 존재 여부 확인
 - 필요시 roughjs maintainer에 문의 또는 이슈 검색
 
@@ -200,13 +200,13 @@ rc.line(x1, y1, x2, y2, options);
 | **위험도** | Medium |
 | **검증** | 배치 처리 테스트, 진행률 표시 확인 |
 
-**listr2 v8 마이그레이션:**
+**listr2 v10 마이그레이션:**
 ```javascript
 // 기존 (listr v0.14)
 const Listr = require('listr');
 new Listr(tasks).run();
 
-// 새 버전 (listr2 v8)
+// 새 버전 (listr2 v10)
 import { Listr } from 'listr2';
 new Listr(tasks, { concurrent: true }).run();
 ```
@@ -221,7 +221,7 @@ new Listr(tasks, { concurrent: true }).run();
 
 **Dockerfile 업데이트 예시:**
 ```dockerfile
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Python 3 명시 (일부 네이티브 빌드 필요)
 RUN apk add --no-cache \
@@ -251,7 +251,7 @@ ENTRYPOINT ["node", "/app/bin/run"]
 
 ### 3.4 완료 기준
 - [ ] canvas v3 설치 및 빌드 성공
-- [ ] roughjs v5 마이그레이션 완료 (내부 API 제거)
+- [ ] roughjs v4.6.6 마이그레이션 완료 (내부 API 제거)
 - [ ] listr2 단일화 완료
 - [ ] Docker 빌드 성공
 - [ ] 모든 렌더링 테스트 통과
@@ -508,7 +508,7 @@ main
 
 ## 7. 위험 대응 계획
 
-### 7.1 roughjs v5 호환성 문제 발생 시
+### 7.1 roughjs v4.6.6 호환성 문제 발생 시
 
 **Option A: roughjs v4 유지**
 - roughjs ^4.3.1 버전 고정
@@ -526,7 +526,7 @@ main
 
 **Option A: Debian 기반 이미지**
 ```dockerfile
-FROM node:20-slim
+FROM node:22-slim
 # Debian 패키지 매니저 사용
 ```
 
