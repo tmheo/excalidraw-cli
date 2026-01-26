@@ -25,6 +25,6 @@ export default class ExcalidrawCli extends Command {
 
     async run() {
         const parsed = await this.parse(ExcalidrawCli)
-        computeUserInputs(parsed)
+        await computeUserInputs(parsed)
     }
 }

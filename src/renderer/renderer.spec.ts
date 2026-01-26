@@ -1,6 +1,6 @@
 /**
  * Characterization tests for renderer
- * CRITICAL: These tests capture rc.generator.curve() behavior before roughjs v5 migration
+ * CRITICAL: These tests validate rc.curve() public API usage for roughjs v4.6+
  */
 
 import { convertExcalidrawToCanvas } from './index'

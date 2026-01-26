@@ -142,26 +142,26 @@ Feature: canvas v3 렌더링 기능
     And 파일로 저장 가능함
 ```
 
-### AC-2.2: roughjs v5 도형 렌더링
+### AC-2.2: roughjs v4 도형 렌더링
 
 ```gherkin
-Feature: roughjs v5 도형 렌더링
+Feature: roughjs v4 도형 렌더링
 
   Scenario: 사각형 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'rectangle'인 요소가 있음
     When 사각형을 렌더링하면
     Then 손그림 스타일의 사각형이 캔버스에 그려짐
     And 스트로크 색상이 올바르게 적용됨
 
   Scenario: 타원 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'ellipse'인 요소가 있음
     When 타원을 렌더링하면
     Then 손그림 스타일의 타원이 캔버스에 그려짐
 
   Scenario: 화살표 렌더링 (리팩토링된 코드)
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'arrow'인 요소가 있음
     And rc.generator 내부 API가 제거됨
     When 화살표를 렌더링하면
@@ -169,25 +169,25 @@ Feature: roughjs v5 도형 렌더링
     And 화살표 머리가 올바른 방향을 가리킴
 
   Scenario: 마름모 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'diamond'인 요소가 있음
     When 마름모를 렌더링하면
     Then 손그림 스타일의 마름모가 캔버스에 그려짐
 
   Scenario: 직선 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'line'인 요소가 있음
     When 직선을 렌더링하면
     Then 손그림 스타일의 직선이 캔버스에 그려짐
 
   Scenario: 텍스트 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'text'인 요소가 있음
     When 텍스트를 렌더링하면
     Then Virgil 폰트로 텍스트가 캔버스에 그려짐
 
   Scenario: 자유 그리기 렌더링
-    Given roughjs v5가 설치됨
+    Given roughjs v4가 설치됨
     And type이 'draw'인 요소가 있음
     When 자유 그리기를 렌더링하면
     Then 손그림 스타일의 경로가 캔버스에 그려짐
@@ -219,7 +219,7 @@ Feature: 시각적 회귀 방지
 Feature: listr2 배치 처리
 
   Scenario: 디렉토리 배치 변환
-    Given listr2 v8이 설치됨
+    Given listr2 v10이 설치됨
     And 여러 .excalidraw 파일이 있는 디렉토리가 있음
     When excalidraw-cli ./input/ ./output/을 실행하면
     Then 모든 파일이 PNG로 변환됨
