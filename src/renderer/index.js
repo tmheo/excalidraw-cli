@@ -101,7 +101,7 @@ export const convertExcalidrawToCanvas = async json => {
             if (el.strokeStyle == 'dotted')
                 ctx.setLineDash([3, 6])
             if (el.type == 'line')
-                renderLine(el, rc, ctx, negativeWidth, negativeHeight)
+                renderLine(el, rc, negativeWidth, negativeHeight)
             if (el.type == 'draw')
                 renderDraw(el, rc, ctx, negativeWidth, negativeHeight)
             if (el.type == 'arrow')

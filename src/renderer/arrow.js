@@ -1,5 +1,29 @@
 import { rotate } from './shapeUtils'
 
+// Arrow head configuration constants
+const ARROW_HEAD_SIZE = 30
+const ARROW_HEAD_ANGLE_DEGREES = 20
+
+/**
+ * Convert degrees to radians
+ * @param {number} degrees - Angle in degrees
+ * @returns {number} Angle in radians
+ */
+const degreesToRadians = (degrees) => (degrees * Math.PI) / 180
+
+/**
+ * Calculate the total length of an arrow path
+ * @param {Array<[number, number]>} points - Array of [x, y] coordinate pairs
+ * @returns {number} Total path length
+ */
+const calculateArrowLength = (points) => {
+    return points.reduce((total, [currentX, currentY], idx, pts) => {
+        if (idx === 0) return 0
+        const [prevX, prevY] = pts[idx - 1]
+        return total + Math.hypot(currentX - prevX, currentY - prevY)
+    }, 0)
+}
+
 /**
  * Calculate arrow head points from element points
  * Refactored to use public API instead of rc.generator internal API
@@ -11,47 +35,44 @@ export const getArrowPoints = (element) => {
     const lastPoint = points[points.length - 1]
     const secondLastPoint = points.length > 1 ? points[points.length - 2] : [0, 0]
 
-    const [x2, y2] = lastPoint
-    const [px, py] = secondLastPoint
+    const [endX, endY] = lastPoint
+    const [prevX, prevY] = secondLastPoint
 
     // Calculate direction vector
-    const dx = x2 - px
-    const dy = y2 - py
+    const dx = endX - prevX
+    const dy = endY - prevY
     const distance = Math.hypot(dx, dy)
 
     // Normalize direction
-    const nx = distance > 0 ? dx / distance : 1
-    const ny = distance > 0 ? dy / distance : 0
+    const normalizedX = distance > 0 ? dx / distance : 1
+    const normalizedY = distance > 0 ? dy / distance : 0
 
-    // Calculate arrow size
-    const size = 30
-    const arrowLength = points.reduce((total, [cx, cy], idx, pts) => {
-        const [prevX, prevY] = idx > 0 ? pts[idx - 1] : [0, 0]
-        return total + Math.hypot(cx - prevX, cy - prevY)
-    }, 0)
+    // Calculate arrow head size (limited to half of arrow length)
+    const arrowLength = calculateArrowLength(points)
+    const headSize = Math.min(ARROW_HEAD_SIZE, arrowLength / 2)
 
-    const minSize = Math.min(size, arrowLength / 2)
-    const xs = x2 - nx * minSize
-    const ys = y2 - ny * minSize
+    // Calculate arrow head base point
+    const arrowBaseX = endX - normalizedX * headSize
+    const arrowBaseY = endY - normalizedY * headSize
 
-    // Calculate arrow head points
-    const angle = 20
-    const [x3, y3] = rotate(x2, y2, xs, ys, (-angle * Math.PI) / 180)
-    const [x4, y4] = rotate(x2, y2, xs, ys, (angle * Math.PI) / 180)
+    // Calculate arrow head points using rotation
+    const angleRadians = degreesToRadians(ARROW_HEAD_ANGLE_DEGREES)
+    const [leftX, leftY] = rotate(endX, endY, arrowBaseX, arrowBaseY, -angleRadians)
+    const [rightX, rightY] = rotate(endX, endY, arrowBaseX, arrowBaseY, angleRadians)
 
-    return [x2, y2, x3, y3, x4, y4]
+    return [endX, endY, leftX, leftY, rightX, rightY]
 }
 
 export const renderArrow = (element, rc, negativeWidth, negativeHeight) => {
     // Use public API rc.curve() instead of rc.generator.curve()
     const points = element.points.length ? element.points : [[0, 0]]
-    const [x1, y1] = [element.x + negativeWidth, element.y + negativeHeight]
+    const [offsetX, offsetY] = [element.x + negativeWidth, element.y + negativeHeight]
 
     // Draw the curve using public API
-    rc.curve(points.map(([x, y]) => [x1 + x, y1 + y]), element)
+    rc.curve(points.map(([x, y]) => [offsetX + x, offsetY + y]), element)
 
     // Calculate and draw arrow head
-    const [x2, y2, x3, y3, x4, y4] = getArrowPoints(element)
-    rc.line(x1 + x2, y1 + y2, x1 + x3, y1 + y3, element)
-    rc.line(x1 + x2, y1 + y2, x1 + x4, y1 + y4, element)
+    const [endX, endY, leftX, leftY, rightX, rightY] = getArrowPoints(element)
+    rc.line(offsetX + endX, offsetY + endY, offsetX + leftX, offsetY + leftY, element)
+    rc.line(offsetX + endX, offsetY + endY, offsetX + rightX, offsetY + rightY, element)
 }

@@ -15,8 +15,29 @@ Project-specific development instructions for excalidraw-cli.
 
 ## Development Environment
 
-- **Node.js**: Required for TypeScript LSP
+- **Node.js**: v24.12.0 (managed by fnm)
+- **npm**: v11.6.2
 - **TypeScript LSP**: typescript-language-server (installed)
+- **Package Manager**: fnm (Fast Node Manager)
+
+### fnm Configuration
+
+**IMPORTANT**: All npm/node commands must be run with fnm environment activated:
+
+```bash
+# Activate fnm environment before any npm/node command
+eval "$(fnm env)"
+
+# Then run npm commands
+npm test
+npm run prepack
+```
+
+**For Claude Code**: Always prefix npm/node commands with fnm activation:
+```bash
+eval "$(fnm env)" && npm test
+eval "$(fnm env)" && npm run prepack
+```
 
 ## Implementation Status
 

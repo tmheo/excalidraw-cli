@@ -1,4 +1,4 @@
-export const renderLine = (element, rc, ctx, negativeWidth, negativeHeight) => {
+export const renderLine = (element, rc, negativeWidth, negativeHeight) => {
     // Use public API rc.curve() instead of rc.generator.curve()
     const points = element.points.length ? element.points : [[0, 0]]
 
