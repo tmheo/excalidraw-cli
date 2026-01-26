@@ -2,4 +2,12 @@
 
 const oclif = require('@oclif/core')
 
-oclif.run().then(require('@oclif/core/flush')).catch(require('@oclif/core/handle'))
+oclif.run().then(require('@oclif/core/flush')).catch((error) => {
+  // Handle ExitError gracefully (oclif v4 throws ExitError for --version, --help)
+  if (error.code === 'EEXIT' && error.oclif?.exit === 0) {
+    // Exit silently with code 0 (success)
+    process.exit(0)
+  }
+  // Handle other errors normally
+  require('@oclif/core/handle')(error)
+})
