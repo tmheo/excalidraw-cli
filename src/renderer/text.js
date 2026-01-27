@@ -1,69 +1,134 @@
-import {} from './shapeUtils'
+const DEFAULT_FONT_SIZE = 20
+const DEFAULT_FONT_FAMILY = 'Virgil'
+const LINE_HEIGHT_MULTIPLIER = 1.35
 
-const getFontSise = element => {
-    const defaultFontSize = 20
-    // If we have a fontSize in the element, use it.
-    if (element.fontSize)
+function getFontSize(element) {
+    if (element.fontSize) {
         return element.fontSize
-    // Try to parse fontSize from the font
+    }
     if (element.font) {
         const value = element.font.split("px")[0]
         const parsed = parseInt(value, 10)
-        if (!isNaN(parsed))
+        if (!isNaN(parsed)) {
             return parsed
+        }
     }
-    return defaultFontSize
+    return DEFAULT_FONT_SIZE
 }
 
-export const getFontFamilyFromId = id => 
-    id ? id == 1 ? 'Virgil' : id == 2 ? 'Arial' : 'Cascadia' : 'Virgil'
+export function getFontFamilyFromId(id) {
+    if (!id) {
+        return DEFAULT_FONT_FAMILY
+    }
+    switch (id) {
+        case 1:
+            return 'Virgil'
+        case 2:
+            return 'Arial'
+        default:
+            return 'Cascadia'
+    }
+}
 
-export const getFontFamilyFromElement = element => {
-    if (element.fontFamily)
+export function getFontFamilyFromElement(element) {
+    if (element.fontFamily) {
         return getFontFamilyFromId(element.fontFamily)
-    if (element.font)
+    }
+    if (element.font) {
         return element.font.split("px")[1]
-    return 'Virgil'
-}
-    
-
-export const getFontFromElement = element => {
-    let font = ''
-    font += getFontSise(element) + 'px '
-    font += getFontFamilyFromElement(element)
-    return font
+    }
+    return DEFAULT_FONT_FAMILY
 }
 
-export const renderText = (element, ctx, negativeWidth, negativeHeight) => {
-    let exploded = element.text.split('\n')
-    let fontSize = getFontSise(element)
-    let totalHeight = fontSize * exploded.length + fontSize * .5 * exploded.length
+export function getFontFromElement(element) {
+    return getFontSize(element) + 'px ' + getFontFamilyFromElement(element)
+}
+
+function getTextAlignX(element, negativeWidth) {
+    const textAlign = element.textAlign || 'center'
+    if (textAlign === 'left') {
+        return element.x + negativeWidth
+    }
+    if (textAlign === 'right') {
+        return element.x + negativeWidth + element.width
+    }
+    return element.x + negativeWidth + element.width / 2
+}
+
+function getLineHeight(element, lineCount) {
+    if (lineCount > 1 && element.height) {
+        return element.height / lineCount
+    }
+    return getFontSize(element) * LINE_HEIGHT_MULTIPLIER
+}
+
+function getVerticalAlignY(element, negativeHeight, lineHeight) {
+    const verticalAlign = element.verticalAlign || 'middle'
+    const lineCount = element.text.split('\n').length
+    const totalHeight = lineHeight * lineCount
+
+    if (verticalAlign === 'top') {
+        return element.y + negativeHeight + lineHeight / 2
+    }
+    if (verticalAlign === 'bottom') {
+        return element.y + negativeHeight + element.height - totalHeight + lineHeight / 2
+    }
+    return element.y + negativeHeight + element.height / 2 - totalHeight / 2 + lineHeight / 2
+}
+
+function getHorizontalOffset(textAlign, width) {
+    if (textAlign === 'left') {
+        return -width / 2
+    }
+    if (textAlign === 'right') {
+        return width / 2
+    }
+    return 0
+}
+
+function getVerticalStartOffset(verticalAlign, height, totalHeight, lineHeight) {
+    if (verticalAlign === 'top') {
+        return -height / 2 + lineHeight / 2
+    }
+    if (verticalAlign === 'bottom') {
+        return height / 2 - totalHeight + lineHeight / 2
+    }
+    return -totalHeight / 2 + lineHeight / 2
+}
+
+export function renderText(element, ctx, negativeWidth, negativeHeight) {
+    const lines = element.text.split('\n')
+    const lineHeight = getLineHeight(element, lines.length)
+    const totalHeight = lineHeight * lines.length
+
     ctx.font = getFontFromElement(element)
     ctx.fillStyle = element.strokeColor
-    ctx.textAlign = 'center'
-    if (element.angle && element.angle != 0) {
-        ctx.translate(element.x + negativeWidth + element.width / 2, element.y + negativeHeight + element.height / 2)
+    ctx.textAlign = element.textAlign || 'center'
+
+    if (element.angle && element.angle !== 0) {
+        const centerX = element.x + negativeWidth + element.width / 2
+        const centerY = element.y + negativeHeight + element.height / 2
+
+        ctx.translate(centerX, centerY)
         ctx.rotate(element.angle)
-        exploded.forEach((str, index) => {
-            ctx.fillText(
-                str,
-                0,
-                0 - totalHeight / 2 + index * (fontSize + fontSize * 0.6) + fontSize * 0.2 + fontSize * 0.5
-            )
+
+        const textAlign = element.textAlign || 'center'
+        const verticalAlign = element.verticalAlign || 'middle'
+        const offsetX = getHorizontalOffset(textAlign, element.width)
+        const startY = getVerticalStartOffset(verticalAlign, element.height, totalHeight, lineHeight)
+
+        lines.forEach((line, index) => {
+            ctx.fillText(line, offsetX, startY + index * lineHeight)
         })
+
         ctx.rotate(-element.angle)
-        ctx.translate(
-            -element.x - negativeWidth - element.width / 2,
-            -element.y - negativeHeight - element.height / 2
-        )
-    }
-    else {
-        exploded.forEach((str, index) => {
-            ctx.fillText(
-                str,
-                element.x + negativeWidth + element.width/2,
-                element.y + element.height / 2 + negativeHeight - totalHeight / 2 + index * (fontSize + fontSize * 0.6) + fontSize * 0.2 + fontSize * 0.5
-            )
+        ctx.translate(-centerX, -centerY)
+    } else {
+        const textX = getTextAlignX(element, negativeWidth)
+        const startY = getVerticalAlignY(element, negativeHeight, lineHeight)
+
+        lines.forEach((line, index) => {
+            ctx.fillText(line, textX, startY + index * lineHeight)
         })
     }
 }
