@@ -1,6 +1,6 @@
 # excalidraw-cli
 
-[![npm version](https://img.shields.io/npm/v/@tommywalkie/excalidraw-cli)](https://www.npmjs.com/package/@tommywalkie/excalidraw-cli) [![Bundlephobia badge](https://badgen.net/bundlephobia/min/@tommywalkie/excalidraw-cli)](https://bundlephobia.com/result?p=@tommywalkie/excalidraw-cli@latest) ![build](https://github.com/tommywalkie/excalidraw-cli/workflows/build/badge.svg?branch=master)
+[![npm version](https://img.shields.io/npm/v/@tommywalkie/excalidraw-cli)](https://www.npmjs.com/package/@tommywalkie/excalidraw-cli) ![build](https://github.com/tmheo/excalidraw-cli/workflows/build/badge.svg?branch=master)
 
 Experimental Excalidraw CLI tool.
 
@@ -12,9 +12,39 @@ This project is a follow-up to [excalidraw#1261](https://github.com/excalidraw/e
 
 _Demo_ ⤴️
 
+## About This Fork
+
+This is a fork of [tommywalkie/excalidraw-cli](https://github.com/tommywalkie/excalidraw-cli).
+
+### Why Fork?
+
+The original project has not been actively maintained, causing compatibility issues with newer Node.js versions and outdated dependencies. This fork addresses these issues by:
+
+- **Updated Dependencies**: Migrated to latest versions of core libraries
+- **Node.js 22+ Support**: Updated engine requirements for modern Node.js
+- **TypeScript 5.x**: Upgraded to TypeScript 5.7 for better type safety
+- **Modern Tooling**: Updated Jest 29, ESLint 9, and oclif v4
+
+### Key Changes from Original
+
+| Package | Original | This Fork |
+|---------|----------|-----------|
+| Node.js | 12+ | 22+ |
+| TypeScript | 4.x | 5.7.x |
+| canvas | 2.x | 3.0.0 |
+| roughjs | 4.3.x | 4.6.6 |
+| listr2 | 2.x | 10.0.0 |
+| oclif | 1.x | 4.x |
+| Jest | 26.x | 29.x |
+
+### Repository Links
+
+- **Original**: [tommywalkie/excalidraw-cli](https://github.com/tommywalkie/excalidraw-cli)
+- **This Fork**: [tmheo/excalidraw-cli](https://github.com/tmheo/excalidraw-cli)
+
 ## Requirements
 
-- Node.js 18.0.0 or higher
+- Node.js 22.0.0 or higher
 - npm or yarn
 
 ### Native Dependencies
@@ -28,8 +58,33 @@ This project uses [node-canvas](https://github.com/Automattic/node-canvas) which
 
 ## Install
 
+### From GitHub (Recommended for this fork)
+
+```bash
+# Install from this fork
+npm install -g github:tmheo/excalidraw-cli
+
+# Or install as a project dependency
+npm install github:tmheo/excalidraw-cli
+```
+
+### From npm (Original package)
+
 ```bash
 npm install -g @tommywalkie/excalidraw-cli
+```
+
+### From Local Build
+
+```bash
+# Clone and build
+git clone https://github.com/tmheo/excalidraw-cli.git
+cd excalidraw-cli
+npm install
+npm run prepack
+
+# Install globally from local build
+npm install -g .
 ```
 
 ### Alpine
@@ -37,7 +92,7 @@ npm install -g @tommywalkie/excalidraw-cli
 If using Alpine (e.g. for Docker stuff), install the following packages.
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:22-alpine
 RUN apk add --no-cache python3 g++ build-base cairo-dev jpeg-dev pango-dev \
     musl-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev freetype-dev
 ```
@@ -59,6 +114,20 @@ OPTIONS
   -h, --help     show CLI help
   -q, --quiet    disable console outputs
   -v, --version  show CLI version
+```
+
+### Programmatic Usage
+
+You can also use this package programmatically in your Node.js projects:
+
+```javascript
+// Using npx (no installation required)
+const { execSync } = require('child_process');
+execSync('npx github:tmheo/excalidraw-cli input.excalidraw output.png');
+
+// Or if installed as a dependency
+const { execSync } = require('child_process');
+execSync('excalidraw-cli input.excalidraw output.png');
 ```
 
 ### Docker
