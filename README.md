@@ -71,6 +71,7 @@ npm install github:tmheo/excalidraw-cli
 ### From npm (Original package)
 
 ```bash
+# Original (may have outdated dependencies)
 npm install -g @tommywalkie/excalidraw-cli
 ```
 

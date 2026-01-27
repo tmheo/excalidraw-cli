@@ -1,13 +1,16 @@
 {
-  "name": "@tommywalkie/excalidraw-cli",
+  "name": "@tmheo/excalidraw-cli",
   "version": "0.5.0",
-  "description": "Experimental Excalidraw CLI tool",
-  "author": "Tom Bazarnik <tommywalkie@gmail.com>",
+  "description": "Experimental Excalidraw CLI tool (fork with updated dependencies)",
+  "author": "Taemyung Heo <tmheo@tmheo.com>",
+  "contributors": [
+    "Tom Bazarnik <tommywalkie@gmail.com>"
+  ],
   "bin": {
     "excalidraw-cli": "./bin/run"
   },
   "bugs": {
-    "url": "https://github.com/tommywalkie/excalidraw-cli/issues"
+    "url": "https://github.com/tmheo/excalidraw-cli/issues"
   },
   "dependencies": {
     "@oclif/core": "^4",
@@ -43,7 +46,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/tommywalkie/excalidraw-cli#readme",
+  "homepage": "https://github.com/tmheo/excalidraw-cli#readme",
   "keywords": [
     "excalidraw",
     "cli",
@@ -64,7 +67,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tommywalkie/excalidraw-cli.git"
+    "url": "git+https://github.com/tmheo/excalidraw-cli.git"
   },
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
