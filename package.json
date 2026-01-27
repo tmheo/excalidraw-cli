@@ -1,6 +1,6 @@
 {
   "name": "@tmheo/excalidraw-cli",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Experimental Excalidraw CLI tool (fork with updated dependencies)",
   "author": "Taemyung Heo <tmheo@tmheo.com>",
   "contributors": [
