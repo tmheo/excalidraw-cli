@@ -4,8 +4,7 @@
  */
 
 import { convertExcalidrawToCanvas } from './index'
-import { getArrowPoints, renderArrow } from './arrow'
-import { renderLine } from './line'
+import { getArrowPoints } from './arrow'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as rough from 'roughjs'
@@ -21,7 +20,7 @@ describe('Renderer Characterization Tests', () => {
     describe('Public API usage (roughjs v4.6+)', () => {
         test('should use public rc.curve() API instead of generator', () => {
             const canvas = createCanvas(200, 200)
-            const rc = (rough as any).canvas(canvas)
+            const rc = (rough as unknown as { canvas: (c: unknown) => { curve: (points: number[][], options: Record<string, unknown>) => void } }).canvas(canvas)
 
             // Verify public API is available
             expect(rc.curve).toBeDefined()
