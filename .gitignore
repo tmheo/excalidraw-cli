@@ -25,6 +25,8 @@ mem.prof
 # ===========================================
 build/
 dist/
+lib/
+/package-lock.json
 *.egg-info/
 *.egg
 
@@ -57,6 +59,8 @@ env/
 # ===========================================
 # Test Coverage
 # ===========================================
+test-snapshots/
+test-output/
 .coverage
 coverage.json
 htmlcov/
@@ -114,6 +118,8 @@ logs/
 # Backups
 # ===========================================
 .moai-backups/
+.moai/cache/
+.moai/memory/
 *.backup/
 *-backup/
 *_backup_*/
